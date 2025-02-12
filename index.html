@@ -1,5 +1,123 @@
-<html>
+
+	<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIF Interactivo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #222;
+            overflow: hidden;
+        }
+
+        .gif-container {
+            position: absolute;
+            cursor: grab;
+            transition: transform 0.3s ease, opacity 0.5s ease;
+        }
+
+        .gif-container:active {
+            cursor: grabbing;
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .text {
+            font-size: 24px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            .text {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
 <body>
-	hola
+    <!-- Primer GIF -->
+    <img id="gif1" class="gif-container" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnRpbjVoOTFwMnd1dXluaHI0dHc4enN4b2V4bDBlZGJyYzZxYTFodSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uters3mQfkmyP1A9KD/giphy.gif" width="150">
+
+    <!-- Segundo GIF (oculto) -->
+    <img id="gif2" class="gif-container hidden" src="https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif" width="150">
+
+    <!-- Texto (oculto) -->
+    <div id="texto" class="text">¡Hola! Aquí está tu mensaje. 🎉</div>
+
+    <script>
+        // Función para hacer los GIFs arrastrables y redimensionables
+        function hacerInteractivo(elemento) {
+            let posX = 0, posY = 0, mouseX = 0, mouseY = 0;
+            let resizing = false;
+
+            elemento.onmousedown = function (e) {
+                if (e.target === elemento) {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+
+                    // Si el clic es en la esquina, activamos el redimensionado
+                    if (e.offsetX > elemento.width - 20 && e.offsetY > elemento.height - 20) {
+                        resizing = true;
+                    } else {
+                        resizing = false;
+                        posX = elemento.offsetLeft - mouseX;
+                        posY = elemento.offsetTop - mouseY;
+                    }
+
+                    document.onmousemove = moverElemento;
+                    document.onmouseup = () => document.onmousemove = document.onmouseup = null;
+                }
+            };
+
+            function moverElemento(e) {
+                if (resizing) {
+                    // Cambia el tamaño del GIF
+                    let newWidth = Math.max(50, elemento.width + (e.clientX - mouseX));
+                    let newHeight = Math.max(50, elemento.height + (e.clientY - mouseY));
+                    elemento.style.width = newWidth + "px";
+                    elemento.style.height = newHeight + "px";
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+                } else {
+                    // Mueve el GIF
+                    elemento.style.left = e.clientX + posX + "px";
+                    elemento.style.top = e.clientY + posY + "px";
+                }
+            }
+        }
+
+        // Hacer interactivo el primer GIF
+        hacerInteractivo(document.getElementById("gif1"));
+        hacerInteractivo(document.getElementById("gif2"));
+
+        // Evento al hacer clic en el primer GIF
+        document.getElementById("gif1").addEventListener("click", function () {
+            this.classList.add("hidden"); // Desaparece el primer GIF
+            document.getElementById("gif2").classList.remove("hidden"); // Muestra el segundo GIF
+        });
+
+        // Evento al hacer clic en el segundo GIF
+        document.getElementById("gif2").addEventListener("click", function () {
+            this.classList.add("hidden"); // Desaparece el segundo GIF
+            document.getElementById("texto").style.display = "block"; // Muestra el texto
+        });
+    </script>
 </body>
 </html>
