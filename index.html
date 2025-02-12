@@ -52,17 +52,17 @@
     </style>
 </head>
 <body>
-    <!-- Primer GIF -->
-    <img id="gif1" class="gif-container" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnRpbjVoOTFwMnd1dXluaHI0dHc4enN4b2V4bDBlZGJyYzZxYTFodSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uters3mQfkmyP1A9KD/giphy.gif" width="150">
+   
+    <img id="gif1" class="gif-container" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnRpbjVoOTFwMnd1dXluaHI0dHc4enN4b2V4bDBlZGJyYzZxYTFodSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/uters3mQfkmyP1A9KD/giphy.gif" width="300" height="300">
 
-    <!-- Segundo GIF (oculto) -->
-    <img id="gif2" class="gif-container hidden" src="https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif" width="150">
+    
+    <img id="gif2" class="gif-container hidden" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExNXMzYm9pemtlNjcwbTEza2tlZTZxeTcxcjR2d3J2djN1Yml2dXVxeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/OzQZEnGwFTuYxBKsAC/giphy.gif" width="300" height="300">
 
-    <!-- Texto (oculto) -->
-    <div id="texto" class="text">¡Hola! Aquí está tu mensaje. 🎉</div>
+    
+    <div id="texto" class="text">¿QUIERES SER MI SAN VALENTIN?.</div>
 
     <script>
-        // Función para hacer los GIFs arrastrables y redimensionables
+       
         function hacerInteractivo(elemento) {
             let posX = 0, posY = 0, mouseX = 0, mouseY = 0;
             let resizing = false;
@@ -72,7 +72,7 @@
                     mouseX = e.clientX;
                     mouseY = e.clientY;
 
-                    // Si el clic es en la esquina, activamos el redimensionado
+                    
                     if (e.offsetX > elemento.width - 20 && e.offsetY > elemento.height - 20) {
                         resizing = true;
                     } else {
@@ -88,7 +88,7 @@
 
             function moverElemento(e) {
                 if (resizing) {
-                    // Cambia el tamaño del GIF
+                    
                     let newWidth = Math.max(50, elemento.width + (e.clientX - mouseX));
                     let newHeight = Math.max(50, elemento.height + (e.clientY - mouseY));
                     elemento.style.width = newWidth + "px";
@@ -96,28 +96,29 @@
                     mouseX = e.clientX;
                     mouseY = e.clientY;
                 } else {
-                    // Mueve el GIF
+                    
                     elemento.style.left = e.clientX + posX + "px";
                     elemento.style.top = e.clientY + posY + "px";
                 }
             }
         }
 
-        // Hacer interactivo el primer GIF
+        
         hacerInteractivo(document.getElementById("gif1"));
         hacerInteractivo(document.getElementById("gif2"));
 
-        // Evento al hacer clic en el primer GIF
+       
         document.getElementById("gif1").addEventListener("click", function () {
-            this.classList.add("hidden"); // Desaparece el primer GIF
-            document.getElementById("gif2").classList.remove("hidden"); // Muestra el segundo GIF
+            this.classList.add("hidden"); 
+            document.getElementById("gif2").classList.remove("hidden"); 
         });
 
-        // Evento al hacer clic en el segundo GIF
+        
         document.getElementById("gif2").addEventListener("click", function () {
-            this.classList.add("hidden"); // Desaparece el segundo GIF
-            document.getElementById("texto").style.display = "block"; // Muestra el texto
+            this.classList.add("hidden"); 
+            document.getElementById("texto").style.display = "block";
         });
     </script>
 </body>
 </html>
+
